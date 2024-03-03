@@ -15,7 +15,7 @@ public class Log extends LimitedIterationsExpandableFunction {
     }
 
     @Override
-    public Double calculate(double x, double precision) {
-        return ln.calculate(x, precision) / ln.calculate(base, precision);
+    public Double calculate(Double x, Double precision) {
+        return ln.calculate(x, precision) / ln.calculate((double) base, precision);
     }
 }

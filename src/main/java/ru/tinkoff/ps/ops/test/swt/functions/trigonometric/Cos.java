@@ -13,7 +13,7 @@ public class Cos extends LimitedIterationsExpandableFunction {
     }
 
     @Override
-    public Double calculate(double x, double precision) {
+    public Double calculate(Double x, Double precision) {
         return sin.calculate(x + Math.PI / 2d, precision);
     }
 }

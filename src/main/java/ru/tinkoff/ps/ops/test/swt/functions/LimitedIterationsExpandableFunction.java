@@ -16,11 +16,11 @@ public abstract class LimitedIterationsExpandableFunction implements SeriesExpan
     this.maxIterations = DEFAULT_MAX_ITERATIONS;
   }
 
-  protected void checkValidity(final BigDecimal x, final BigDecimal precision) {
+  protected void checkValidity(final Double x, final Double precision) {
     Objects.requireNonNull(x, "Function argument can not be null");
     Objects.requireNonNull(precision, "Precision can not be null");
-    if (precision.compareTo(ZERO) <= 0 || precision.compareTo(ONE) >= 0) {
-      throw new ArithmeticException("Precision must be less than one and more than zero");
+    if (precision <= 0 || precision >= 1) {
+      throw new IllegalArgumentException("Precision must be less than one and more than zero");
     }
   }
 }

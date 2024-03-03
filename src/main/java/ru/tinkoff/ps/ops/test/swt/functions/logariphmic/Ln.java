@@ -5,7 +5,8 @@ import ru.tinkoff.ps.ops.test.swt.functions.LimitedIterationsExpandableFunction;
 
 public class Ln extends LimitedIterationsExpandableFunction {
     @Override
-    public Double calculate(double x, double precision) {
+    public Double calculate(Double x, Double precision) {
+        checkValidity(x, precision);
         if (x <= 0) {
             throw new IllegalArgumentException();
         }

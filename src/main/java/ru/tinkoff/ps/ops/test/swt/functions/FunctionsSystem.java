@@ -27,12 +27,12 @@ public class FunctionsSystem implements SeriesExpandableFunction{
 
 
     @Override
-    public Double calculate(double x, double precision) {
+    public Double calculate(Double x, Double precision) {
         if (x <= 0) {
             return cos.calculate(x, precision);
         }
         else {
-            return Math.pow(ln.calculate(x, precision) * log2.calculate(x, 2) / Math.pow(log10.calculate(x, precision), 3) * log2.calculate(x, precision), 2) + ln.calculate(x, precision);
+            return Math.pow(ln.calculate(x, precision) * log2.calculate(x, 2d) / Math.pow(log10.calculate(x, precision), 3) * log2.calculate(x, precision), 2) + ln.calculate(x, precision);
         }
     }
 }

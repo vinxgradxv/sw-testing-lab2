@@ -9,11 +9,11 @@ public class Sin extends LimitedIterationsExpandableFunction {
     }
 
     @Override
-    public Double calculate(double x, double precision) {
-
+    public Double calculate(Double x, Double precision) {
+        checkValidity(x, precision);
         x = fixPeriod(x);
         double xPow = x;
-        x = 1;
+        x = 1d;
 
         double result = 0;
         double lastResult;
