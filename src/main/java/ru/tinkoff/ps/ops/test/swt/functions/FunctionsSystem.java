@@ -32,6 +32,9 @@ public class FunctionsSystem implements SeriesExpandableFunction{
             return cos.calculate(x, precision);
         }
         else {
+            if (log10.calculate(x, precision) == 0) {
+                throw new ArithmeticException();
+            }
             return Math.pow(ln.calculate(x, precision) * log2.calculate(x, 2d) / Math.pow(log10.calculate(x, precision), 3) * log2.calculate(x, precision), 2) + ln.calculate(x, precision);
         }
     }
