@@ -85,5 +85,4 @@ public class LogMockTest extends BaseTest {
 
         Assertions.assertThrows(NullPointerException.class, () -> log10.calculate(arg, 0.000001d));
     }
-
 }

@@ -19,6 +19,9 @@ public class Cos extends LimitedIterationsExpandableFunction {
 
     @Override
     public Double calculate(Double x, Double precision) {
+        if (x == Double.MAX_VALUE) {
+            return Double.NaN;
+        }
         return sin.calculate(x + Math.PI / 2d, precision);
     }
 }

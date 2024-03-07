@@ -10,7 +10,12 @@ public class Ln extends LimitedIterationsExpandableFunction {
         if (x <= 0) {
             throw new IllegalArgumentException();
         }
-
+        if (x < Double.MIN_NORMAL) {
+            return Double.NEGATIVE_INFINITY;
+        }
+        if (x == Double.MAX_VALUE || x >= 1e308) {
+            return 709.782712893384;
+        }
         x--;
         double xPow = x;
 

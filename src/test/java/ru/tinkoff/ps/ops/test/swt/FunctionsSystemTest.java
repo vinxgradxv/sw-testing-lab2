@@ -31,4 +31,17 @@ public class FunctionsSystemTest extends BaseTest {
         final FunctionsSystem system = new FunctionsSystem();
         assertThrows(ArithmeticException.class, () -> system.calculate(1d, PRECISION));
     }
+
+    @Test
+    void extremeValueTest() {
+        final FunctionsSystem system = new FunctionsSystem();
+        assertEquals(Double.NaN, system.calculate(Double.MAX_VALUE, PRECISION), "Handling of Double.MAX_VALUE");
+    }
+
+    @Test
+    void negativeValueTest() {
+        final FunctionsSystem system = new FunctionsSystem();
+        double negativeX = -Math.PI / 4;
+        assertEquals(Math.cos(negativeX), system.calculate(negativeX, PRECISION), PRECISION);
+    }
 }

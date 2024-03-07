@@ -31,6 +31,15 @@ public class CosTest extends BaseTest {
         Assertions.assertEquals(Math.cos(x), cos.calculate(x, PRECISION), PRECISION);
     }
 
+    @ParameterizedTest
+    @MethodSource("extremeValues")
+    public void testExtremeValues(double x) {
+        if (Double.isInfinite(x) || x == Double.MAX_VALUE) {
+            Assertions.assertTrue(Double.isNaN(cos.calculate(x, PRECISION)));
+        } else {
+            Assertions.assertEquals(Math.cos(x), cos.calculate(x, PRECISION), PRECISION, "Cos calculation for extreme values should match Math.cos");
+        }
+    }
 
     private static Stream<Arguments> borderValues() {
         return Stream.of(
@@ -52,5 +61,11 @@ public class CosTest extends BaseTest {
                 Arguments.of(-1),
                 Arguments.of(7),
                 Arguments.of(100 * Math.PI + 1));
+    }
+
+    private static Stream<Arguments> extremeValues() {
+        return Stream.of(
+                Arguments.of(Double.MIN_VALUE),
+                Arguments.of(Double.MAX_VALUE));
     }
 }

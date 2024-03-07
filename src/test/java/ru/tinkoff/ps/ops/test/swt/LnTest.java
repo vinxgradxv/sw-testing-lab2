@@ -32,6 +32,24 @@ public class LnTest extends BaseTest {
         Assertions.assertEquals(Math.log(x), ln.calculate(x, PRECISION), PRECISION_ASSERT);
     }
 
+    @ParameterizedTest()
+    @MethodSource("valuesCloseTo1")
+    public void valuesCloseTo1Test(double x) {
+        Assertions.assertEquals(Math.log(x), ln.calculate(x, PRECISION), PRECISION_ASSERT, "Ln calculation for values close to 1 should be precise");
+    }
+
+    @ParameterizedTest()
+    @MethodSource("verySmallPositiveValues")
+    public void verySmallPositiveValuesTest(double x) {
+        Assertions.assertTrue(Double.isInfinite(ln.calculate(x, PRECISION)), "Ln calculation for very small positive values should be -Infinity");
+    }
+
+    @ParameterizedTest()
+    @MethodSource("largeValues")
+    public void largeValuesAsymptoticBehaviorTest(double x) {
+        Assertions.assertFalse(Double.isNaN(ln.calculate(x, PRECISION)), "Ln calculation for large values should not be NaN");
+    }
+
     private static Stream<Arguments> illegalValues() {
         return Stream.of(
                 Arguments.of(-1),
@@ -56,5 +74,24 @@ public class LnTest extends BaseTest {
                 Arguments.of(10),
                 Arguments.of(100),
                 Arguments.of(1000));
+    }
+
+    private static Stream<Arguments> valuesCloseTo1() {
+        return Stream.of(
+                Arguments.of(0.99),
+                Arguments.of(1.01),
+                Arguments.of(1.00001),
+                Arguments.of(0.99999));
+    }
+
+    private static Stream<Arguments> verySmallPositiveValues() {
+        return Stream.of(
+                Arguments.of(Double.MIN_VALUE));
+    }
+
+    private static Stream<Arguments> largeValues() {
+        return Stream.of(
+                Arguments.of(Double.MAX_VALUE),
+                Arguments.of(1e308));
     }
 }

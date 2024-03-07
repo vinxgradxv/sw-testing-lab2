@@ -32,6 +32,18 @@ public class SinTest extends BaseTest{
         Assertions.assertEquals(Math.sin(x), sin.calculate(x, PRECISION), PRECISION);
     }
 
+    @ParameterizedTest
+    @MethodSource("criticalPointsValues")
+    public void testCriticalPoints(double x, double expected) {
+        Assertions.assertEquals(expected, sin.calculate(x, PRECISION), PRECISION);
+    }
+
+    @ParameterizedTest
+    @MethodSource("symmetryValues")
+    public void testSymmetry(double x) {
+        Assertions.assertEquals(sin.calculate(-x, PRECISION), -sin.calculate(x, PRECISION), PRECISION);
+    }
+
     private static Stream<Arguments> borderValues() {
         return Stream.of(
                 Arguments.of(0),
@@ -52,5 +64,19 @@ public class SinTest extends BaseTest{
                 Arguments.of(-1),
                 Arguments.of(7),
                 Arguments.of(100 * Math.PI + 1));
+    }
+
+    private static Stream<Arguments> criticalPointsValues() {
+        return Stream.of(
+                Arguments.of(Math.PI / 2, 1.0),
+                Arguments.of(-Math.PI / 2, -1.0),
+                Arguments.of(Math.PI, 0.0),
+                Arguments.of(3 * Math.PI / 2, -1.0),
+                Arguments.of(2 * Math.PI, 0.0),
+                Arguments.of(-Math.PI, 0.0));
+    }
+
+    private static Stream<Double> symmetryValues() {
+        return Stream.of(-Math.PI / 2, -Math.PI / 4, 0.0, Math.PI / 4, Math.PI / 2);
     }
 }

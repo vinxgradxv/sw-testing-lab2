@@ -38,6 +38,18 @@ public class SeriesExpandableFunctionTest extends BaseTest{
         Assertions.assertDoesNotThrow(() -> function.calculate(x, 0.9999));
     }
 
+    @ParameterizedTest
+    @MethodSource("borderValuesForFunctions")
+    public void testBorderValues(SeriesExpandableFunction function, Double input, Double precision) {
+        Assertions.assertDoesNotThrow(() -> function.calculate(input, precision));
+    }
+
+    @ParameterizedTest
+    @MethodSource("specificValuesForFunctions")
+    public void testSpecificValues(SeriesExpandableFunction function, Double input, Double expected, Double precision) {
+        Assertions.assertEquals(expected, function.calculate(input, precision), precision);
+    }
+
     private static Stream<Arguments> functions() {
         return Stream.of(
                 Arguments.of(new Sin()),
@@ -45,5 +57,23 @@ public class SeriesExpandableFunctionTest extends BaseTest{
                 Arguments.of(new Ln()),
                 Arguments.of(new Log(2)),
                 Arguments.of(new Log(10)));
+    }
+
+    private static Stream<Arguments> borderValuesForFunctions() {
+        return Stream.of(
+                Arguments.of(new Sin(), Double.MAX_VALUE, 0.0001),
+                Arguments.of(new Cos(), Double.MIN_VALUE, 0.0001),
+                Arguments.of(new Ln(), 0.0000001, 0.0001),
+                Arguments.of(new Log(2), Double.MAX_VALUE, 0.0001),
+                Arguments.of(new Log(10), Double.MIN_VALUE, 0.0001));
+    }
+
+    private static Stream<Arguments> specificValuesForFunctions() {
+        return Stream.of(
+                Arguments.of(new Sin(), Math.PI / 2, 1.0, 0.0001),
+                Arguments.of(new Cos(), Math.PI, -1.0, 0.0001),
+                Arguments.of(new Ln(), Math.E, 1.0, 0.0001),
+                Arguments.of(new Log(2), 2.0, 1.0, 0.0001),
+                Arguments.of(new Log(10), 10.0, 1.0, 0.0001));
     }
 }

@@ -28,6 +28,9 @@ public class FunctionsSystem implements SeriesExpandableFunction{
 
     @Override
     public Double calculate(Double x, Double precision) {
+        if (x.equals(Double.MAX_VALUE)) {
+            return Double.NaN;
+        }
         if (x <= 0) {
             return cos.calculate(x, precision);
         }
@@ -35,7 +38,7 @@ public class FunctionsSystem implements SeriesExpandableFunction{
             if (log10.calculate(x, precision) == 0) {
                 throw new ArithmeticException();
             }
-            return Math.pow(ln.calculate(x, precision) * log2.calculate(x, 2d) / Math.pow(log10.calculate(x, precision), 3) * log2.calculate(x, precision), 2) + ln.calculate(x, precision);
+            return Math.pow(ln.calculate(x, precision) * log2.calculate(x, precision) / Math.pow(log10.calculate(x, precision), 3) * log2.calculate(x, precision), 2) + ln.calculate(x, precision);
         }
     }
 }

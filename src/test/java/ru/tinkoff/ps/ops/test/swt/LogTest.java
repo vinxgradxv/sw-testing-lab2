@@ -30,6 +30,16 @@ public class LogTest extends BaseTest {
         Assertions.assertEquals(0, log10.calculate(1d, PRECISION));
     }
 
+    @Test
+    public void testLog2OfBase() {
+        Assertions.assertEquals(1, log2.calculate(2d, PRECISION), PRECISION);
+    }
+
+    @Test
+    public void testLog10OfBase() {
+        Assertions.assertEquals(1, log10.calculate(10d, PRECISION), PRECISION);
+    }
+
     @ParameterizedTest
     @MethodSource("invalidValues")
     public void testInvalidValueLog2(Double value) {
@@ -66,6 +76,31 @@ public class LogTest extends BaseTest {
         Assertions.assertEquals(Math.log10(value), log10.calculate(value, PRECISION), PRECISION_ASSERT);
     }
 
+    @ParameterizedTest
+    @MethodSource("extremelyLargeValues")
+    public void testExtremelyLargeValuesLog2(Double value) {
+        Assertions.assertFalse(Double.isNaN(log2.calculate(value, PRECISION)), "Log2 calculation for extremely large values should not be NaN");
+    }
+
+    @ParameterizedTest
+    @MethodSource("extremelyLargeValues")
+    public void testExtremelyLargeValuesLog10(Double value) {
+        Assertions.assertFalse(Double.isNaN(log10.calculate(value, PRECISION)), "Log10 calculation for extremely large values should not be NaN");
+    }
+
+    @ParameterizedTest
+    @MethodSource("verySmallPositiveValues")
+    public void testVerySmallPositiveValuesLog2(Double value) {
+        Assertions.assertFalse(Double.isNaN(log2.calculate(value, PRECISION)), "Log2 calculation for very small positive values should not be NaN ");
+    }
+
+    @ParameterizedTest
+    @MethodSource("verySmallPositiveValues")
+    public void testVerySmallPositiveValuesLog10(Double value) {
+        Assertions.assertFalse(Double.isNaN(log10.calculate(value, PRECISION)), "Log10 calculation for very small positive values should not be NaN");
+    }
+
+
     private static Stream<Arguments> invalidValues() {
         return Stream.of(
                 Arguments.of(0d),
@@ -87,5 +122,17 @@ public class LogTest extends BaseTest {
                 Arguments.of(4d),
                 Arguments.of(10d),
                 Arguments.of(100d));
+    }
+
+    private static Stream<Arguments> extremelyLargeValues() {
+        return Stream.of(
+                Arguments.of(Double.MAX_VALUE),
+                Arguments.of(1e308));
+    }
+
+    private static Stream<Arguments> verySmallPositiveValues() {
+        return Stream.of(
+                Arguments.of(Double.MIN_VALUE),
+                Arguments.of(1e-300));
     }
 }

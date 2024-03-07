@@ -39,14 +39,14 @@ public class Sin extends LimitedIterationsExpandableFunction {
     }
 
     private static double fixPeriod(double x) {
+        if (x == Double.MAX_VALUE || x == Double.MIN_VALUE || Math.abs(x) > 2 * Math.PI) {
+            x = x % (2 * Math.PI);
+        }
         if (x > 0) {
-            while (x >= 2 * Math.PI) {
-                x -= 2 * Math.PI;
-            }
-        } else if (x < 0){
-            while (x <= 0) {
-                x += 2 * Math.PI;
-            }
+            x = x % (2 * Math.PI);
+        }
+        else if (x < 0) {
+            x = -(Math.abs(x) % (2 * Math.PI));
         }
         return x;
     }
