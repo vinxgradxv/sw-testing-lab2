@@ -52,9 +52,9 @@ public class CosMockTest extends BaseTest{
     @Test
     @DisplayName("Use specific value from Sin")
     public void useSpecificValueFromSinTest() {
-        double arg = 5d;
+        double arg = Math.PI / 2;
         double correctedArg = Math.PI / 2 + arg;
-        double expectedSinResult = 0.283662d;
+        double expectedSinResult = 0d;
 
         when(mockSin.calculate(eq(correctedArg), anyDouble())).thenReturn(expectedSinResult);
 

@@ -28,6 +28,6 @@ public class Main {
         CsvWriter.write("csv/log10.csv", log10, 0.1, 20, 0.1, PRECISION);
 
         final FunctionsSystem func = new FunctionsSystem();
-        CsvWriter.write("csv/func.csv", func, -2, 2, 0.1, PRECISION);
+        CsvWriter.write("csv/func.csv", func, -10, 2, 0.01, PRECISION);
     }
 }

@@ -32,15 +32,16 @@ public class LogMockTest extends BaseTest {
 
     @Test
     public void useValueFromLnLog2Test() {
-        var arg = 5d;
-        var lnResult = 2d;
+        var arg = 4d;
+        var lnResult = 1.38629d;
+        var lnBaseResult = 0.69314d;
 
         when(mockLn.calculate(eq(arg), any(Double.class))).thenReturn(lnResult);
-        when(mockLn.calculate(eq(2d), any(Double.class))).thenReturn(lnResult);
+        when(mockLn.calculate(eq(2d), any(Double.class))).thenReturn(lnBaseResult);
 
         final Log log2 = new Log(2, mockLn);
 
-        Assertions.assertEquals(1, log2.calculate(arg, 0.000001d));
+        Assertions.assertEquals(lnResult/lnBaseResult, log2.calculate(arg, 0.000001d));
     }
 
     @Test
@@ -64,15 +65,16 @@ public class LogMockTest extends BaseTest {
 
     @Test
     public void useValueFromLnLog10Test() {
-        var arg = 5d;
-        var lnResult = 2d;
+        var arg = 20d;
+        var lnResult = 2.99573d;
+        var lnBaseResult = 2.30258d;
 
         when(mockLn.calculate(eq(arg), any(Double.class))).thenReturn(lnResult);
-        when(mockLn.calculate(eq(10d), any(Double.class))).thenReturn(lnResult);
+        when(mockLn.calculate(eq(10d), any(Double.class))).thenReturn(lnBaseResult);
 
         final Log log10 = new Log(10, mockLn);
 
-        Assertions.assertEquals(1, log10.calculate(arg, 0.000001d));
+        Assertions.assertEquals(lnResult / lnBaseResult, log10.calculate(arg, 0.000001d));
     }
 
     @Test
